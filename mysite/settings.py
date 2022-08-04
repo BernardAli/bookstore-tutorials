@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@t4x6k(dldm3(+5=-dkmqqg_102m%)s0%=v$92p_ni3&2hr6dx'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG_BOOL")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     # Local
     'accounts',
     'pages',
+    'books',
 
     # 3rd Party
     "allauth",
@@ -142,11 +144,19 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
 # ACCOUNT_SESSION_REMEMBER = True
 # ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
+
+DEFAULT_FROM_EMAIL = "alibernard.1992@gmail.com"
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'alibernard.1992@gmail.com'
+EMAIL_HOST_PASSWORD = 'fbdawrtjpvpxkiwx'
