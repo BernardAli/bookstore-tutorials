@@ -13,6 +13,12 @@
 </head>
 <body>
     <div class="ui container">
+        <nav>
+            <form method="get" class="ui form" action="{% url 'search_results' %}">
+                <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" >
+                <button class="ui button" type="submit">Search</button>
+            </form>
+        </nav>
         {% block content %}
 
         {% endblock content %}
